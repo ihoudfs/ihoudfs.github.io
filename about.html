@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>关于ihoudf</title>
+	<meta name="author" content="ihoudf">
+	<meta name="description" content="ihoudf自我介绍">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+
+	<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script>
+		$(function() {
+		    $.fn.Cherry_Blossoms=function (params) {
+		        return this.each(function () {
+		            var defaults={
+		                ele:'.cherry',//切换对象
+		                is_Cherry:true,//是否生成樱花
+		                image_min:10,//花瓣最小宽度和高度
+		                image_max:50,//花瓣最大宽度和高度
+		                time_min:10000,//花瓣最快下坠时间
+		                time_max:20000,//花瓣最慢下坠时间
+		                interval:500//花瓣生成时间间隔
+		            };
+		            var par = $.extend({}, defaults, params);
+		            function randomNum(minNum, maxNum) {
+		                switch (arguments.length) {
+		                    case 1:
+		                        return parseInt(Math.random() * minNum + 1, 10);
+		                        break;
+		                    case 2:
+		                        return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
+		                        break;
+		                    default:
+		                        return 0;
+		                        break;
+		                }
+		            }
+		            /**
+		             * 生成樱花花瓣
+		             */
+		            if(par.is_Cherry) {
+		                setInterval(function () {
+		                    var time;//下落的持续时间，取随机数
+		                    var image_daxiao;//花瓣大小取随机数
+		                    var margin_left;//花瓣所在位置，取随机数
+		                    margin_left = randomNum(5, 100);
+		                    time = randomNum(par.time_min, par.time_max);
+		                    console.log(time);
+		                    image_daxiao = randomNum(par.image_min, par.image_max);
+		                    console.log(image_daxiao);
+		                    $('#yinghua:last-child').after('<img id="yinghua" src="image/yinghua.png" alt="">');
+		                    $('#yinghua:last-child').css({
+		                        'margin-left': margin_left + '%',
+		                        'width': image_daxiao + 'px',
+		                        'height': image_daxiao + 'px'
+		                    });
+		                    $('#yinghua:last-child').animate({
+		                            left: -15 + '%',
+		                            top: 100 + '%',
+		                            deg: -540
+		                        },
+		                        {
+		                            step: function (deg) {
+		                                //console.log(deg);
+		                                $(this).css({"transform": "rotate3d(1,.2,0," + deg + "deg)"});
+		                            },
+		                            duration: time
+		                        }, time);
+		                    setTimeout(function () {
+		                        $('#yinghua:first-child').remove();
+		                    }, time-5000);
+		                }, par.interval);
+		            }
+		        })
+		    }
+		});
+	</script>
+
+	<style>
+		*{margin: 0px;padding: 0px;}
+		body{background: rgb(37,37,37);box-sizing: border-box;}
+		img{width:50px;height:50px;margin-top:-5%;opacity: 0.5;position: absolute;z-index: 99;}
+
+		#text{
+			width: 100%;height: 60px; position: absolute;top:30%;overflow: hidden;
+			opacity: 0;font-size: 800%;line-height: 60px;color: rgb(200,200,200);font-weight: 300;text-align: center;
+		}
+
+		#line{
+			width: 0%;height: 2px;background-color: rgb(222,222,222);
+			position: absolute;left:50%;top:39%;margin-top: 30px;
+		}
+
+		#name{
+			width: 50%;height:40px;position: absolute;left: 25%;top:49%;
+			opacity: 0;text-align: center;color: rgb(222,222,222);
+			font-size: 30px; line-height: 40px; font-weight: 300;
+		}
+
+		.time{
+			position: absolute;
+			top:62%;
+			left:45%;
+			width: 10%;height: 70px;
+			color: aquamarine;
+			font-weight: 500;
+			font-size: 900%;
+			text-align: center;
+			opacity: 0;
+		}
+		#biaoyan{
+			z-index: 69;width: 50%;height: auto;
+			position: absolute; left:25%; top:90%; opacity: 0; }
+
+		#jinguanzhang{
+			z-index: 59;width: 50%;height: auto;
+			position: absolute; left:25%; top:70%; visibility: hidden;opacity: 1;
+		}
+
+		#audio1{margin: 0 auto;position: absolute;bottom: 4%;left: 50%;margin-left: -150px;visibility: hidden;}
+
+		@media screen and (max-width:1024px){
+			#mark{font-size: 30px;}
+		}
+	</style>
+
+</head>
+<body>
+	<div class="cherry">
+		<img id="yinghua" src="image/yinghua.png" alt="" >
+	</div>
+	<script>
+	    $(function(){
+	        $('.cherry').Cherry_Blossoms({
+	            is_Cherry:true,//是否生成樱花
+	            image_min:10,//花瓣最小宽度和高度
+	            image_max:50,//花瓣最大宽度和高度
+	            time_min:8000,//花瓣最快下坠时间
+	            time_max:22000,//花瓣最慢下坠时间
+	            interval:300//花瓣生成时间间隔
+	        })
+	    })
+	</script>
+	<audio id="audio1" controls src="http://file.ws.126.net/f2e/news/china_tolerance/files/bgm3.mp3"></audio>
+	<!--<audio id="audio1" controls src="image/biaoyan.m4a"></audio>-->
+	<div id="text">那货正在努力编写ing...</div>
+	<div id="line"></div>
+	<div id="name">IHOUDF</div>
+	<div class="time a">3</div>
+	<!--<img id="biaoyan" src="image/biaoyan_green.png" alt="">-->
+	<!--<img id="jinguanzhang" src="image/timg.gif" alt="">-->
+
+
+</body>
+
+	<script>
+		window.onload =  function text_animation(){
+		    setTimeout(function () {
+		        var sw = $(window).width();
+//		        if (sw < 1024){
+//                    $("#text").animate({
+//                        fontSize:'30px',
+//                        opacity:'1'
+//                    },500,function () {
+//
+//                    });
+//				}else {
+                    $("#text").animate({
+                        fontSize:"300%",
+                        opacity:'1'
+                    },500,function () {
+                        $("#line").animate({width:"70%", left:"15%"
+						},function () {
+							$("#name").animate({opacity:"1"},function () {//倒计时
+								var time = $(".a");
+								time.text("3");
+								time.css("opacity","1");
+								time.animate({fontSize:"500%"});
+								time.animate({opacity:"0"},function () {
+									time.text("2");
+									time.css("fontSize","900%");
+									time.animate({opacity:"1"});
+                                    time.animate({fontSize:"500%"});
+                                    time.animate({opacity:"0"},function () {
+										time.text("1");
+										time.css("fontSize","900%");
+                                        time.animate({opacity:"1"});
+                                        time.animate({fontSize:"500%"});
+                                        time.animate({opacity:"0"},function () {//展示图片
+
+											biaoyan_jianbian();
+                                        });
+                                    });
+
+                                });
+
+
+                            });
+                        });
+                    });
+//				}
+
+            },1000);
+        }
+
+        function biaoyan_jianbian() {
+            $("#audio1").css("visibility","visible");
+            $("#audio1")[0].play();
+
+//			setTimeout(function () {
+//                var biaoyan = $("#biaoyan").animate({opacity:"1"},500,function () {
+//					$("#jinguanzhang").css("visibility","visible");
+//                    $("#biaoyan").animate({
+//                        visibility:"hidden"
+//					});
+//
+//                });
+//            },1600);
+        }
+
+
+	</script>
+
+</html>
+
+
