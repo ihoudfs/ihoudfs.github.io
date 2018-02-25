@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>WHERE ARE YOU</title>
+	<meta name="author" content="ihoudf（github：https://github.com/ihoudf）">
+	<meta name="description" content="WHERE ARE YOU">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script>
+		$(function() {
+		    $.fn.Cherry_Blossoms=function (params) {
+		        return this.each(function () {
+		            var defaults={
+		                ele:'.cherry',//切换对象
+		                is_Cherry:true,//是否生成樱花
+		                image_min:10,//花瓣最小宽度和高度
+		                image_max:50,//花瓣最大宽度和高度
+		                time_min:10000,//花瓣最快下坠时间
+		                time_max:20000,//花瓣最慢下坠时间
+		                interval:500//花瓣生成时间间隔
+		            };
+		            var par = $.extend({}, defaults, params);
+		            function randomNum(minNum, maxNum) {
+		                switch (arguments.length) {
+		                    case 1:
+		                        return parseInt(Math.random() * minNum + 1, 10);
+		                        break;
+		                    case 2:
+		                        return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
+		                        break;
+		                    default:
+		                        return 0;
+		                        break;
+		                }
+		            }
+		            /**
+		             * 生成樱花花瓣
+		             */
+		            if(par.is_Cherry) {
+		                setInterval(function () {
+		                    var time;//下落的持续时间，取随机数
+		                    var image_daxiao;//花瓣大小取随机数
+		                    var margin_left;//花瓣所在位置，取随机数
+		                    margin_left = randomNum(5, 100);
+		                    time = randomNum(par.time_min, par.time_max);
+		                    console.log(time);
+		                    image_daxiao = randomNum(par.image_min, par.image_max);
+		                    console.log(image_daxiao);
+		                    $('#yinghua:last-child').after('<img id="yinghua" src="image/yinghua.png" alt="">');
+		                    $('#yinghua:last-child').css({
+		                        'margin-left': margin_left + '%',
+		                        'width': image_daxiao + 'px',
+		                        'height': image_daxiao + 'px'
+		                    });
+		                    $('#yinghua:last-child').animate({
+		                            left: -15 + '%',
+		                            top: 100 + '%',
+		                            deg: -540
+		                        },
+		                        {
+		                            step: function (deg) {
+		                                $(this).css({"transform": "rotate3d(1,.2,0," + deg + "deg)"});
+		                            },
+		                            duration: time
+		                        }, time);
+		                    setTimeout(function () {
+		                        $('#yinghua:first-child').remove();
+		                    }, time-5000);
+		                }, par.interval);
+		            }
+		        })
+		    }
+		});
+	</script>
+
+	<style>
+		*{margin: 0px;padding: 0px;}
+		body{background: black;box-sizing: border-box;}
+		img{width:50px;height:50px;margin-top:-5%;opacity: 0.5;position: absolute;z-index: 99;}
+
+		#text{
+
+			width: 100%;height: 300px; position: absolute;top:30%;overflow: hidden;
+			font-size: 500%;line-height: 300px;color: rgb(200,200,200);font-weight: 100;
+		}
+
+		#line{
+			width: 0%;height: 2px;background-color: rgb(222,222,222);
+			position: absolute;left:50%;top:39%;margin-top: 30px;
+		}
+
+		#name{
+			width: 50%;height:40px;position: absolute;left: 25%;top:49%;
+			opacity: 0;text-align: center;color: rgb(222,222,222);
+			font-size: 30px; line-height: 40px; font-weight: 300;
+		}
+
+		@media screen and (max-width:1024px){
+			#mark{font-size: 30px;}
+		}
+	</style>
+
+</head>
+<body>
+	<div class="cherry">
+		<img id="yinghua" src="image/yinghua.png" alt="" >
+	</div>
+	<script>
+	    $(function(){
+	        $('.cherry').Cherry_Blossoms({
+	            is_Cherry:true,//是否生成樱花
+	            image_min:50,//花瓣最小宽度和高度
+	            image_max:100,//花瓣最大宽度和高度
+	            time_min:10000,//花瓣最快下坠时间
+	            time_max:32000,//花瓣最慢下坠时间
+	            interval:300//花瓣生成时间间隔
+	        })
+	    })
+	</script>
+
+	<marquee id="text" width=100% behavior=alternate direction=middle align=middle>
+		<p id="where">床已铺好，外面是我里面是你，就差个你了</p>
+	</marquee>
+	<div id="line"></div>
+	<div id="name">IHOUDF</div>
+
+</body>
+	<script>
+  		function changeColor(){
+            var color="#ff4500|#66cdaa|#90ee90|#ff69b4|#00ced1|#9acd32|#ffc0cb|#f0f8ff|#f5f5dc|#ff7f50|#ffd700|#ff69b4";
+            color=color.split("|");
+            document.getElementById("where").style.color=color[parseInt(Math.random() * color.length)];
+        }
+		window.onload =  function text_animation(){
+        	setInterval("changeColor()",150);
+        }
+	</script>
+</html>
+
+
